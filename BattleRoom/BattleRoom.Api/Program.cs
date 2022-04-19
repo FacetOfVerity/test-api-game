@@ -1,11 +1,17 @@
+using BattleRoom.Api.Extensions;
+using BattleRoom.Infrastructure.Database;
+using BattleRoom.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services
+    .AddPresentation()
+    .RegisterInfrastructureDependencies(builder.Configuration);
 
 var app = builder.Build();
+
+app.MigrateDatabase<BattleRoomLobbiesContext>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(options => options.RouteTemplate = "api/publisher/swagger/{documentName}/swagger.json");

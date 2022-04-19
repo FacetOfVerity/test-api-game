@@ -4,10 +4,14 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5056",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DbConnection__Host": "localhost",
+        "DbConnection__Port": "5050",
+        "DbConnection__Username": "postgres",
+        "DbConnection__Password": "BattleRoomDbPassword",
+        "DbConnection__Database": "BattleRoom.Db"
       }
     }
   }
