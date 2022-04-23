@@ -27,10 +27,12 @@ public class JoinTheLobbyCommand : IRequest
     public class Handler : IRequestHandler<JoinTheLobbyCommand>
     {
         private readonly ILobbiesContext _lobbiesContext;
+        private readonly IMediator _mediator;
 
-        public Handler(ILobbiesContext lobbiesContext)
+        public Handler(ILobbiesContext lobbiesContext, IMediator mediator)
         {
             _lobbiesContext = lobbiesContext;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(JoinTheLobbyCommand request, CancellationToken cancellationToken)
@@ -39,11 +41,13 @@ public class JoinTheLobbyCommand : IRequest
                 .Lobbies
                 .WithSpecification(new LobbyWithPlayersSpec(request._lobbyId))
                 .SingleAsync(cancellationToken);
-            
-            lobby.Start(request._secondPlayerId);
 
+            lobby.Start(request._secondPlayerId);
             await _lobbiesContext.SaveChangesAsync(cancellationToken);
-            
+
+            //Run game process in separated scope
+            await _mediator.Send(new ExecuteAsyncCommand(new RunGameCommand(lobby.Id)), cancellationToken);
+
             return Unit.Value;
         }
     }

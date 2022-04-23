@@ -14,5 +14,7 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
             .HasMany(a => a.Games)
             .WithOne(a => a.Player)
             .HasForeignKey(a => a.PlayerId);
+
+        builder.HasIndex(a => a.NickName).IsUnique();
     }
 }

@@ -7,7 +7,7 @@ namespace BattleRoom.Domain.Entities;
 /// </summary>
 public class Lobby
 {
-    #region Props
+    #region Entity props
     
     public Guid Id { get; set; }
     
@@ -19,17 +19,22 @@ public class Lobby
 
     public DateTimeOffset? ClosedAt { get; set; }
 
-    public bool Closed => ClosedAt.HasValue;
-
-    public bool Started => StartedAt.HasValue;
-
     public ICollection<PlayerInLobby> Players { get; set; }
     
     #endregion
 
-    #region Methods
+    #region Computed props
     
-    public static Lobby CreateWithHost(Guid lobbyId, Guid hostId) => new(lobbyId, hostId);
+    public bool Closed => ClosedAt.HasValue;
+
+    public bool Started => StartedAt.HasValue;
+
+    public PlayerInLobby Host => Players.Single(a => a.IsHost);
+    public PlayerInLobby SecondPlayer => Players.First(a => !a.IsHost);
+    
+    #endregion
+
+    #region Logic
 
     public void Close(Guid winnerId)
     {
@@ -50,7 +55,7 @@ public class Lobby
         EnsureNotStarted();
         
         StartedAt = DateTimeOffset.UtcNow;
-        Players.Add(new PlayerInLobby(Id, secondPlayerId));
+        Players.Add(new PlayerInLobby(Id, secondPlayerId, false));
     }
     
     private void EnsureNotClosed()
@@ -72,19 +77,18 @@ public class Lobby
     #endregion
 
     #region Ctors
+    
+    public static Lobby CreateWithHost(Guid lobbyId, Guid hostId) => new(lobbyId, hostId);
 
     private Lobby(Guid lobbyId, Guid hostId)
     {
         Id = lobbyId;
         Players = new List<PlayerInLobby>();
-        Players.Add(new PlayerInLobby(Id, hostId));
+        Players.Add(new PlayerInLobby(Id, hostId, true));
         CreatedAt = DateTimeOffset.UtcNow;
     }
 
-    protected Lobby()
-    {
-        
-    }
+    protected Lobby() { }
     
     #endregion
 }

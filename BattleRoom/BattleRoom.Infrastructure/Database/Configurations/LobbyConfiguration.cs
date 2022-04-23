@@ -14,9 +14,11 @@ public class LobbyConfiguration : IEntityTypeConfiguration<Lobby>
             .HasMany(a => a.Players)
             .WithOne(a => a.Lobby)
             .HasForeignKey(a => a.LobbyId);
-        
+
         builder
             .Ignore(a => a.Closed)
-            .Ignore(a => a.Started);
+            .Ignore(a => a.Started)
+            .Ignore(a => a.Host)
+            .Ignore(a => a.SecondPlayer);
     }
 }

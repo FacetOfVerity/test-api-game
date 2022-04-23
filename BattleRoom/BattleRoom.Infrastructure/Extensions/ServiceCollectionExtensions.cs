@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 
 namespace BattleRoom.Infrastructure.Extensions;
@@ -23,6 +24,13 @@ public static class ServiceCollectionExtensions
         
         //Other
         services.AddMediatR(typeof(CreateLobbyCommand).Assembly);
+        
+        services.AddLogging(config => config.AddSimpleConsole(options =>
+        {
+            options.IncludeScopes = true;
+            options.SingleLine = true;
+            options.TimestampFormat = "hh:mm:ss ";
+        }));
 
         return services;
     }

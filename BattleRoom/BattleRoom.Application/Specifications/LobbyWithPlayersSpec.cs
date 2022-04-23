@@ -8,7 +8,7 @@ public class LobbyWithPlayersSpec : Specification<Lobby>
     public LobbyWithPlayersSpec(Guid lobbyId)
     {
         Query
-            .Include(a => a.Players)
+            .Include(a => a.Players).ThenInclude(a => a.Player)
             .Where(a => a.Id == lobbyId);
     }
 }

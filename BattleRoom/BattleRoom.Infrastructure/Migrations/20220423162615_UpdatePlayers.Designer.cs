@@ -3,6 +3,7 @@ using System;
 using BattleRoom.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BattleRoom.Infrastructure.Migrations
 {
     [DbContext(typeof(BattleRoomLobbiesContext))]
-    partial class BattleRoomLobbiesContextModelSnapshot : ModelSnapshot
+    [Migration("20220423162615_UpdatePlayers")]
+    partial class UpdatePlayers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

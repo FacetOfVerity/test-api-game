@@ -23,10 +23,7 @@ public class Player
         NickName = nickName;
     }
 
-    protected Player()
-    {
-        
-    }
+    protected Player() { }
 
     #endregion
 }
