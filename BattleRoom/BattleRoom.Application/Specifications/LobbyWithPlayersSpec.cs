@@ -11,4 +11,10 @@ public class LobbyWithPlayersSpec : Specification<Lobby>
             .Include(a => a.Players).ThenInclude(a => a.Player)
             .Where(a => a.Id == lobbyId);
     }
+    
+    public LobbyWithPlayersSpec()
+    {
+        Query
+            .Include(a => a.Players).ThenInclude(a => a.Player);
+    }
 }

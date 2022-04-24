@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Shared\BattleRoom.Models\BattleRoom.Models.csproj" />
-    </ItemGroup>
-
 </Project>

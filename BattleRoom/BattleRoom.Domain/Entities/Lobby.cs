@@ -10,8 +10,6 @@ public class Lobby
     #region Entity props
     
     public Guid Id { get; set; }
-    
-    public Guid? WinnerId { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
     
@@ -39,13 +37,11 @@ public class Lobby
     public void Close(Guid winnerId)
     {
         EnsureNotClosed();
+        EnsurePlayerInLobby(winnerId);
 
-        if (Players.All(a => a.PlayerId != winnerId))
-        {
-            throw new DomainException($"Player {winnerId} isn't in lobby {Id}");
-        }
+        var winner = Players.Single(a => a.PlayerId == winnerId);
+        winner.IsWinner = true;
         
-        WinnerId = winnerId;
         ClosedAt = DateTimeOffset.UtcNow;
     }
     
@@ -71,6 +67,14 @@ public class Lobby
         if (Started)
         {
             throw new DomainException($"Game in lobby {Id} already started");
+        }
+    }
+    
+    private void EnsurePlayerInLobby(Guid playerId)
+    {
+        if (Players.All(a => a.PlayerId != playerId))
+        {
+            throw new DomainException($"Player {playerId} isn't in lobby {Id}");
         }
     }
 

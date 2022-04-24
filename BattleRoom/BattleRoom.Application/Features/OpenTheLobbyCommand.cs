@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BattleRoom.Application.Features;
 
-public class CreateLobbyCommand : IRequest
+public class OpenTheLobbyCommand : IRequest
 {
     #region Data
     
@@ -12,7 +12,7 @@ public class CreateLobbyCommand : IRequest
 
     private readonly Guid _hostId;
 
-    public CreateLobbyCommand(Guid lobbyId, Guid hostId)
+    public OpenTheLobbyCommand(Guid lobbyId, Guid hostId)
     {
         _lobbyId = lobbyId;
         _hostId = hostId;
@@ -22,7 +22,7 @@ public class CreateLobbyCommand : IRequest
 
     #region Handler
     
-    public class Handler : IRequestHandler<CreateLobbyCommand>
+    public class Handler : IRequestHandler<OpenTheLobbyCommand>
     {
         private readonly ILobbiesContext _lobbiesContext;
 
@@ -31,7 +31,7 @@ public class CreateLobbyCommand : IRequest
             _lobbiesContext = lobbiesContext;
         }
 
-        public async Task<Unit> Handle(CreateLobbyCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(OpenTheLobbyCommand request, CancellationToken cancellationToken)
         {
             var lobby = Lobby.CreateWithHost(request._lobbyId, request._hostId);
             _lobbiesContext.Lobbies.Add(lobby);

@@ -1,4 +1,5 @@
 using BattleRoom.Application.Features;
+using BattleRoom.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,17 @@ public class LobbiesController
         _mediator = mediator;
     }
 
+    [HttpGet]
+    public async Task<IEnumerable<LobbyDto>> GetOpenedLobbies([FromQuery] int skip, [FromQuery] int take)
+    {
+        return await _mediator.Send(new GetOpenedLobbiesQuery(skip, take));
+    }
+    
     [HttpPost]
     [Route("{lobbyId}/{hostId}")]
     public async Task Create(Guid lobbyId, Guid hostId)
     {
-        await _mediator.Send(new CreateLobbyCommand(lobbyId, hostId));
+        await _mediator.Send(new OpenTheLobbyCommand(lobbyId, hostId));
     }
     
     [HttpPost]

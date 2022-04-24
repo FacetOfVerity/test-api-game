@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{A94237
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AE40CCD7-8E76-41F5-9D76-CBE5FEF01CA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Client.Abstractions", "Shared\BattleRoom.Client.Abstractions\BattleRoom.Client.Abstractions.csproj", "{E879CE75-2B17-471E-97FB-C257A6BF6016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Models", "Shared\BattleRoom.Models\BattleRoom.Models.csproj", "{D1B02F32-67FE-49A7-990E-EA7514D0A1F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +41,17 @@ Global
 		{D5C46C7C-C599-4FE0-B9C8-60B54025D3C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C46C7C-C599-4FE0-B9C8-60B54025D3C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C46C7C-C599-4FE0-B9C8-60B54025D3C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E879CE75-2B17-471E-97FB-C257A6BF6016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E879CE75-2B17-471E-97FB-C257A6BF6016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E879CE75-2B17-471E-97FB-C257A6BF6016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E879CE75-2B17-471E-97FB-C257A6BF6016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B02F32-67FE-49A7-990E-EA7514D0A1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B02F32-67FE-49A7-990E-EA7514D0A1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B02F32-67FE-49A7-990E-EA7514D0A1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B02F32-67FE-49A7-990E-EA7514D0A1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E879CE75-2B17-471E-97FB-C257A6BF6016} = {AE40CCD7-8E76-41F5-9D76-CBE5FEF01CA8}
+		{D1B02F32-67FE-49A7-990E-EA7514D0A1F3} = {AE40CCD7-8E76-41F5-9D76-CBE5FEF01CA8}
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,7 @@
 using BattleRoom.Api.Extensions;
 using BattleRoom.Infrastructure.Database;
 using BattleRoom.Infrastructure.Extensions;
+using BattleRoom.Infrastructure.SignalR.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +23,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseWebSockets();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<LobbiesEventsHub>("lobbies");
+});
 
 app.Run();

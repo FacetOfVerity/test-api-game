@@ -12,6 +12,8 @@ public class PlayerInLobby
     public Guid PlayerId { get; set; }
 
     public bool IsHost { get; set; }
+    
+    public bool IsWinner { get; set; }
 
     public Lobby Lobby { get; set; }
     
@@ -26,6 +28,7 @@ public class PlayerInLobby
         LobbyId = lobbyId;
         PlayerId = playerId;
         IsHost = isHost;
+        IsWinner = false;
     }
 
     public PlayerInLobby() { }

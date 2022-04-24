@@ -1,6 +1,12 @@
 using BattleRoom.Application.Abstractions;
 using BattleRoom.Application.Features;
+using BattleRoom.Application.Mapping;
+using BattleRoom.Application.Utils;
+using BattleRoom.Client.Abstractions;
+using BattleRoom.Domain.Abstractions;
 using BattleRoom.Infrastructure.Database;
+using BattleRoom.Infrastructure.SignalR;
+using BattleRoom.Infrastructure.SignalR.Hubs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,8 +28,14 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ILobbiesContext, BattleRoomLobbiesContext>();
         services.AddScoped<IPlayersContext, BattleRoomLobbiesContext>();
         
+        // SignalR
+        services.AddSignalR();
+        services.AddScoped<ISubscribersNotifier<ILobbyActionsHandler>,
+            SignalRNotifier<LobbiesEventsHub, ILobbyActionsHandler>>();
+        services.AddScoped<IGameActionsPublisher, GameActionsPublisher>();
+        
         //Other
-        services.AddMediatR(typeof(CreateLobbyCommand).Assembly);
+        services.AddMediatR(typeof(OpenTheLobbyCommand).Assembly);
         
         services.AddLogging(config => config.AddSimpleConsole(options =>
         {
@@ -31,6 +43,8 @@ public static class ServiceCollectionExtensions
             options.SingleLine = true;
             options.TimestampFormat = "hh:mm:ss ";
         }));
+
+        services.AddAutoMapper(a => a.AddProfile(typeof(MappingProfile)));
 
         return services;
     }
