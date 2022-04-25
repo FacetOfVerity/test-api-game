@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "BattleRoom.Tests.Integration.Launcher": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "BattleRoomApiUrl": "http://localhost:5056",
+        "LobbiesHubUrl": "http://localhost:5056/lobbies"
+      }
+    }
+  }
+}
