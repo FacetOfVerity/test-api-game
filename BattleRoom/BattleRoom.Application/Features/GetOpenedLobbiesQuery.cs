@@ -13,13 +13,13 @@ public class GetOpenedLobbiesQuery : IRequest<IEnumerable<LobbyDto>>
 {
    #region Data
 
-   private readonly int _skip;
-   private readonly int _take;
+   private readonly int _offset;
+   private readonly int _count;
 
-   public GetOpenedLobbiesQuery(int skip, int take)
+   public GetOpenedLobbiesQuery(int offset, int count)
    {
-      _skip = skip;
-      _take = take;
+      _offset = offset;
+      _count = count;
    }
 
    #endregion
@@ -43,7 +43,7 @@ public class GetOpenedLobbiesQuery : IRequest<IEnumerable<LobbyDto>>
       {
          var query = _lobbiesContext.Lobbies
             .WithSpecification(new LobbyWithPlayersSpec())
-            .WithSpecification(new PagingSpec<Lobby>(request._skip, request._take, a => a.CreatedAt))
+            .WithSpecification(new PagingSpec<Lobby>(request._offset, request._count, a => a.CreatedAt))
             .Where(a => !a.StartedAt.HasValue)
             .AsSplitQuery();
 

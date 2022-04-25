@@ -17,26 +17,22 @@ public class LobbiesEventsHub : Hub<ILobbyActionsHandler>
         _mediator = mediator;
     }
     
-    public async Task OpenTheLobby(Guid lobbyId)
+    public async Task OpenTheLobby(Guid lobbyId, Guid playerId)
     {
         var group = SignalRUtils.GetGroupName<LobbiesEventsHub>(lobbyId);
         await Groups.AddToGroupAsync(Context.ConnectionId, group);
         _logger.LogInformation($"Client {Context.ConnectionId} connected to the group {group}");
 
-        var userId = Guid.Parse(Context.UserIdentifier);
-
-        await _mediator.Send(new OpenTheLobbyCommand(lobbyId, userId));
+        await _mediator.Send(new OpenTheLobbyCommand(lobbyId, playerId));
     }
     
-    public async Task JoinTheLobby(Guid lobbyId)
+    public async Task JoinTheLobby(Guid lobbyId, Guid playerId)
     {
         var group = SignalRUtils.GetGroupName<LobbiesEventsHub>(lobbyId);
         await Groups.AddToGroupAsync(Context.ConnectionId, group);
         _logger.LogInformation($"Client {Context.ConnectionId} connected to the group {group}");
 
-        var userId = Guid.Parse(Context.UserIdentifier);
-
-        await _mediator.Send(new JoinTheLobbyCommand(lobbyId, userId));
+        await _mediator.Send(new JoinTheLobbyCommand(lobbyId, playerId));
     }
     
     public async Task LeaveTheLobby(Guid lobbyId)

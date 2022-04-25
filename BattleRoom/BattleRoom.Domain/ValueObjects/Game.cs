@@ -20,7 +20,7 @@ public class Game
 
     private Game(Lobby lobby, IGameActionsPublisher publisher)
     {
-        _random = new Random();
+        _random = new Random(DateTimeOffset.UtcNow.Millisecond);
         _lobby = lobby;
         _host = new PlayerInGame(_lobby.Host.Player);
         _secondPlayer = new PlayerInGame(_lobby.SecondPlayer.Player);
@@ -60,11 +60,33 @@ public class Game
         {
             await Task.Delay(STEP_DELAY);
 
-            _host.TakeDamage(_random.Next(0, MAX_DAMAGE));
-            _secondPlayer.TakeDamage(_random.Next(0, MAX_DAMAGE));
+            var hostDamage = _random.Next(0, MAX_DAMAGE);
+            _host.TakeDamage(hostDamage);
+
+            var secondPlayerDamage = _random.Next(0, MAX_DAMAGE);
+            _secondPlayer.TakeDamage(secondPlayerDamage);
+
+            //Edge case when on the last step both players die (draw)
+            ResolveDraw(hostDamage, secondPlayerDamage);
         
             //Notify players about intermediate state of the game
             await _publisher.StateTransition(_lobby.Id, _host.GetDto(), _secondPlayer.GetDto());
+        }
+
+        void ResolveDraw(int hostDamage, int secondPlayerDamage)
+        {
+            if (!_host.IsAlive && !_secondPlayer.IsAlive)
+            {
+                var drawRnd = _random.Next(0, 1);
+                if (drawRnd == 0)
+                {
+                    _host.Health.Value+=hostDamage;
+                }
+                else
+                {
+                    _secondPlayer.Health.Value+=secondPlayerDamage;
+                }
+            }
         }
     }
 }

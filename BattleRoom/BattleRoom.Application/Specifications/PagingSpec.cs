@@ -5,8 +5,8 @@ namespace BattleRoom.Application.Specifications;
 
 public class PagingSpec<T> : Specification<T>
 {
-    public PagingSpec(int skip, int take, Expression<Func<T, object>> orderBySelector)
+    public PagingSpec(int offset, int count, Expression<Func<T, object>> orderBySelector)
     {
-        Query.Skip(skip).Take(take).OrderBy(orderBySelector);
+        Query.Skip(offset).Take(count).OrderBy(orderBySelector);
     }
 }

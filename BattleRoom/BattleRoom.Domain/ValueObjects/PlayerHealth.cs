@@ -4,7 +4,7 @@ public class PlayerHealth
 {
     public const int MAX_PLAYER_HEALTH = 10;
 
-    private readonly int _value;
+    private int _value;
 
     public int Value
     {
@@ -15,11 +15,13 @@ public class PlayerHealth
             {
                 throw new ArgumentException($"Health cannot be more than {MAX_PLAYER_HEALTH}");
             }
+
+            _value = value;
         }
     }
 
     public PlayerHealth()
     {
-        _value = 10;
+        _value = MAX_PLAYER_HEALTH;
     }
 }
