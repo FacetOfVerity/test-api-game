@@ -1,7 +1,7 @@
 using BattleRoom.Models;
 using Refit;
 
-namespace BattleRoom.Tests.Integration.Launcher.Http;
+namespace BattleRoom.Tests.End2End.Launcher.Http;
 
 public interface IBattleRoomHttpClient
 {

@@ -33,3 +33,15 @@ services:
       - 5056:80
     depends_on:
       - database
+        
+  battle-room-end2end-test:
+    build:
+      context: .
+      dockerfile: ./Tests/BattleRoom.Tests.End2End.Launcher/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - BattleRoomApiUrl=http://battle-room-api
+      - LobbiesHubUrl=http://battle-room-api/lobbies
+    restart: always
+    depends_on:
+      - battle-room-api

@@ -1,5 +1,5 @@
-using BattleRoom.Tests.Integration.Launcher;
-using BattleRoom.Tests.Integration.Launcher.Http;
+using BattleRoom.Tests.End2End.Launcher;
+using BattleRoom.Tests.End2End.Launcher.Http;
 using Microsoft.AspNetCore.SignalR.Client;
 using Refit;
 

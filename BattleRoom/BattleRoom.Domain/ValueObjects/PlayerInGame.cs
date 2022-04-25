@@ -1,5 +1,5 @@
-using BattleRoom.Domain.Dto;
 using BattleRoom.Domain.Entities;
+using BattleRoom.Models;
 
 namespace BattleRoom.Domain.ValueObjects;
 

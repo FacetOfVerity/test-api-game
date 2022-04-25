@@ -4,7 +4,6 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-BattleRoom.Tests.Integration.Launcher-9F342348-560C-46FE-8D46-412CF3BF33A5</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

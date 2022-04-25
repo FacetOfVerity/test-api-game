@@ -1,11 +1,10 @@
 using BattleRoom.Client.Abstractions;
-using BattleRoom.Domain.Dto;
 using BattleRoom.Models;
-using BattleRoom.Tests.Integration.Launcher.Handlers;
-using BattleRoom.Tests.Integration.Launcher.Http;
+using BattleRoom.Tests.End2End.Launcher.Handlers;
+using BattleRoom.Tests.End2End.Launcher.Http;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace BattleRoom.Tests.Integration.Launcher;
+namespace BattleRoom.Tests.End2End.Launcher;
 
 public class Worker : BackgroundService
 {

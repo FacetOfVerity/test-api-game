@@ -1,4 +1,4 @@
-using BattleRoom.Domain.Dto;
+using BattleRoom.Models;
 
 namespace BattleRoom.Domain.Abstractions;
 

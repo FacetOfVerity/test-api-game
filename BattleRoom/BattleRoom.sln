@@ -8,9 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Application", "BattleRoom.Application\BattleRoom.Application.csproj", "{D5C46C7C-C599-4FE0-B9C8-60B54025D3C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{A94237E9-09DB-4781-BD88-2F19B70AA69D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{A94237E9-09DB-4781-BD88-2F19B70AA69D}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AE40CCD7-8E76-41F5-9D76-CBE5FEF01CA8}"
@@ -21,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Models", "Shared
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66DA39C3-105B-4F4A-BDBF-37D7354A4D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Tests.Integration.Launcher", "Tests\BattleRoom.Tests.Integration.Launcher\BattleRoom.Tests.Integration.Launcher.csproj", "{15B7FEFB-6E17-4A17-BE34-A8E4D3C252D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleRoom.Tests.End2End.Launcher", "Tests\BattleRoom.Tests.End2End.Launcher\BattleRoom.Tests.End2End.Launcher.csproj", "{15B7FEFB-6E17-4A17-BE34-A8E4D3C252D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

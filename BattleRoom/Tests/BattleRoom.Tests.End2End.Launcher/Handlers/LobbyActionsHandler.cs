@@ -1,8 +1,7 @@
 using BattleRoom.Client.Abstractions;
-using BattleRoom.Domain.Dto;
 using BattleRoom.Models;
 
-namespace BattleRoom.Tests.Integration.Launcher.Handlers;
+namespace BattleRoom.Tests.End2End.Launcher.Handlers;
 
 public class LobbyActionsHandler : ILobbyActionsHandler
 {

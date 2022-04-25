@@ -1,7 +1,7 @@
 using BattleRoom.Application.Abstractions;
 using BattleRoom.Client.Abstractions;
 using BattleRoom.Domain.Abstractions;
-using BattleRoom.Domain.Dto;
+using BattleRoom.Models;
 
 namespace BattleRoom.Application.Utils;
 

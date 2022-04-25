@@ -23,7 +23,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseWebSockets();
 app.UseRouting();
 app.UseEndpoints(endpoints =>
 {

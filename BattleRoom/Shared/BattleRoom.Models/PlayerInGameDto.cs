@@ -1,4 +1,4 @@
-namespace BattleRoom.Domain.Dto;
+namespace BattleRoom.Models;
 
 public record PlayerInGameDto
 {
