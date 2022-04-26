@@ -34,10 +34,15 @@ public class Worker : BackgroundService
             var secondPlayerHandler = new LobbyActionsHandler(_logger, players.SecondPlayer);
             var lobbyId = Guid.NewGuid();
 
-            //Run game
+            //Emulate host actions
             await RunGameForHost(players.Host, hostHandler, lobbyId, stoppingToken);
+            
+            //Wait 3 secs, request lobbies (like second player do) and select this test's lobby
             await Task.Delay(3000, stoppingToken);
-            await RunGameForSecondPlayer(players.SecondPlayer, secondPlayerHandler, lobbyId, stoppingToken);
+            var lobby = await RequestLobby(lobbyId);
+            
+            //Emulate second player actions
+            await RunGameForSecondPlayer(players.SecondPlayer, secondPlayerHandler, lobby, stoppingToken);
 
         }
         catch (Exception e)
@@ -48,7 +53,9 @@ public class Worker : BackgroundService
 
     private async Task RunGameForHost(PlayerDto player, LobbyActionsHandler actionsHandler, Guid lobbyId, CancellationToken stoppingToken)
     {
-        var scope = _serviceProvider.CreateScope();
+        _logger.LogInformation($"{player.NickName} is creating the lobby");
+        
+        var scope = _serviceProvider.CreateAsyncScope();
         var hubConnection = scope.ServiceProvider.GetService<HubConnection>();
             
         //Declare events handling
@@ -56,27 +63,37 @@ public class Worker : BackgroundService
                 
         //Open connection
         await hubConnection.StartAsync(stoppingToken);
-            
+
         //Run game
         await hubConnection.InvokeAsync("OpenTheLobby", lobbyId, player.Id, stoppingToken);
     }
-    
-    private async Task RunGameForSecondPlayer(PlayerDto player, LobbyActionsHandler actionsHandler, Guid lobbyId, CancellationToken stoppingToken)
+
+    private async Task RunGameForSecondPlayer(PlayerDto player, LobbyActionsHandler actionsHandler, LobbyDto lobby,
+        CancellationToken stoppingToken)
     {
-        var scope = _serviceProvider.CreateScope();
+        _logger.LogInformation($"{player.NickName} is joining the lobby");
+        
+        var scope = _serviceProvider.CreateAsyncScope();
         var hubConnection = scope.ServiceProvider.GetService<HubConnection>();
-            
+
         //Declare events handling
         SubscribeOnEvents(hubConnection, actionsHandler, scope);
-                
+
         //Open connection
         await hubConnection.StartAsync(stoppingToken);
-        
+
         //Run game
-        await hubConnection.InvokeAsync("JoinTheLobby", lobbyId, player.Id, stoppingToken);
+        await hubConnection.InvokeAsync("JoinTheLobby", lobby.Id, player.Id, stoppingToken);
     }
 
-    private void SubscribeOnEvents(HubConnection hubConnection, LobbyActionsHandler actionsHandler, IServiceScope scope)
+    private async Task<LobbyDto> RequestLobby(Guid lobbyId)
+    {
+        var lobbies = await _httpClient.GetOpenedLobbies(0, 100);
+
+        return lobbies.Single(a => a.Id == lobbyId);
+    }
+
+    private void SubscribeOnEvents(HubConnection hubConnection, LobbyActionsHandler actionsHandler, IAsyncDisposable scope)
     {
         hubConnection.On<Guid, IEnumerable<PlayerInGameDto>>(nameof(ILobbyActionsHandler.OnGameStarted),
             (lobbyId, players) =>
@@ -89,8 +106,7 @@ public class Worker : BackgroundService
             {
                 actionsHandler.OnGameFinished(lobbyId, winner);
                 hubConnection.InvokeAsync("LeaveTheLobby");
-                hubConnection.DisposeAsync();
-                //scope.Dispose();
+                scope.DisposeAsync();
             });
         
         hubConnection.On<Guid, PlayerInGameDto, PlayerInGameDto>(nameof(ILobbyActionsHandler.OnStateChanged),

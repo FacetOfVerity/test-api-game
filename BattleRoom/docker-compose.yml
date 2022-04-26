@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: ./Tests/BattleRoom.Tests.End2End.Launcher/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
       - BattleRoomApiUrl=http://battle-room-api
       - LobbiesHubUrl=http://battle-room-api/lobbies
     restart: always

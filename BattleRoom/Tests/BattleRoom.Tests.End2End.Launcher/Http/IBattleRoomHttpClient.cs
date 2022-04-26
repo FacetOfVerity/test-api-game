@@ -12,5 +12,5 @@ public interface IBattleRoomHttpClient
     Task<IEnumerable<PlayerDto>> GetPlayers([Query] int offset, [Query] int count);
     
     [Get("/api/lobbies")]
-    Task<IEnumerable<PlayerDto>> GetOpenedLobbies([Query] int offset, [Query] int count);
+    Task<IEnumerable<LobbyDto>> GetOpenedLobbies([Query] int offset, [Query] int count);
 }
