@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		..\README.md = ..\README.md
+		docker-compose.debug.yml = docker-compose.debug.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AE40CCD7-8E76-41F5-9D76-CBE5FEF01CA8}"
